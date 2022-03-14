@@ -24,7 +24,8 @@ export default class BannerWebPart extends BaseClientSideWebPart<IBannerWebPartP
       Banner,
       {
         description: this.properties.description,
-        filePickerResult: this.properties.filePickerResult
+        filePickerResult: this.properties.filePickerResult,
+        context: this.context
       }
     );
 
@@ -62,7 +63,7 @@ export default class BannerWebPart extends BaseClientSideWebPart<IBannerWebPartP
                     onChanged: (e: IFilePickerResult) => { console.log(e); this.properties.filePickerResult = e; },
                     key: "filePickerId",
                     buttonLabel: "File Picker",
-                    label: "File Picker",                  
+                    label: "File Picker",
                 })
               ]
             }

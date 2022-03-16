@@ -1,12 +1,10 @@
 import { ApplicationCustomizerContext } from '@microsoft/sp-application-base';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import { DynamicForm } from '@pnp/spfx-controls-react';
-import { Dialog, DialogFooter, PrimaryButton, DefaultButton, Icon, MessageBarType, MessageBar } from 'office-ui-fabric-react';
+import { Dialog, PrimaryButton, Icon, MessageBarType, MessageBar } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { BannerImageBusiness } from '../../business/BannerImageBusiness';
 import { BaseCrudBusiness, ICrudListItem } from '../../business/base/BaseCrudBusiness';
-import IBannerImage from '../../interfaces/lists/IBannerImage';
 import styles from './ListManager.module.scss';
 
 interface IBannerImageAdminProps {
@@ -33,8 +31,12 @@ export default function ListManager(props: IBannerImageAdminProps) {
     }, []);
 
     const loadData = async () => {
-        const auxBannerImages = await props.business.getAll();
-        setBannerImages(auxBannerImages);
+        try {
+            const auxBannerImages = await props.business.getAll();
+            setBannerImages(auxBannerImages);
+        } catch (error) {
+            setError(error.message);
+        }
     };
 
     const closeBannerEditDialog = () => {

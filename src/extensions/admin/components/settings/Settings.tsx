@@ -3,7 +3,7 @@ import { Icon, Panel, PanelType } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { useState } from 'react';
 import { BannerImageBusiness } from '../../../../business/BannerImageBusiness';
-import ListManager from '../../../../components/BannerImageAdmin/ListManager';
+import ListManager from '../../../../components/ListManager/ListManager';
 import { IAdminApplicationCustomizerProperties } from '../../AdminApplicationCustomizer';
 import styles from './Settings.module.scss';
 import { SecurityTrimmedControl, PermissionLevel } from "@pnp/spfx-controls-react/lib/SecurityTrimmedControl";

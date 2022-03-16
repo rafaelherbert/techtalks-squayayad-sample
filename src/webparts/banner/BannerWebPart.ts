@@ -11,6 +11,7 @@ import * as strings from 'BannerWebPartStrings';
 import Banner from './components/Banner';
 import { IBannerProps } from './components/IBannerProps';
 import { PropertyFieldFilePicker, IPropertyFieldFilePickerProps, IFilePickerResult } from "@pnp/spfx-property-controls/lib/PropertyFieldFilePicker";
+import { setup as pnpSetup } from "@pnp/common";
 
 export interface IBannerWebPartProps {
   description: string;
@@ -18,6 +19,14 @@ export interface IBannerWebPartProps {
 }
 
 export default class BannerWebPart extends BaseClientSideWebPart<IBannerWebPartProps> {
+
+    protected onInit(): Promise<void> {
+        return super.onInit().then((_) => {
+          pnpSetup({
+            spfxContext: this.context,
+          });
+        });
+      }
 
   public render(): void {
     const element: React.ReactElement<IBannerProps> = React.createElement(

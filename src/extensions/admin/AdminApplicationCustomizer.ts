@@ -1,13 +1,11 @@
 import { override } from '@microsoft/decorators';
-import { Log } from '@microsoft/sp-core-library';
 import {
-  BaseApplicationCustomizer
+    BaseApplicationCustomizer, PlaceholderContent, PlaceholderName
 } from '@microsoft/sp-application-base';
-import { Dialog } from '@microsoft/sp-dialog';
-
-import * as strings from 'AdminApplicationCustomizerStrings';
-
-const LOG_SOURCE: string = 'AdminApplicationCustomizer';
+import Settings from './components/settings/Settings';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+import { sp } from '@pnp/sp';
 
 /**
  * If your command set uses the ClientSideComponentProperties JSON input,
@@ -15,25 +13,39 @@ const LOG_SOURCE: string = 'AdminApplicationCustomizer';
  * You can define an interface to describe it.
  */
 export interface IAdminApplicationCustomizerProperties {
-  // This is an example; replace with your own property
-  testMessage: string;
 }
 
 /** A Custom Action which can be run during execution of a Client Side Application */
 export default class AdminApplicationCustomizer
   extends BaseApplicationCustomizer<IAdminApplicationCustomizerProperties> {
 
+      // These have been added
+  private _topPlaceholder: PlaceholderContent | undefined;
+
   @override
   public onInit(): Promise<void> {
-    Log.info(LOG_SOURCE, `Initialized ${strings.Title}`);
+    sp.setup({
+        sp: {
+          baseUrl: this.context.pageContext.web.absoluteUrl
+        },
+        spfxContext: this.context
+    });
 
-    let message: string = this.properties.testMessage;
-    if (!message) {
-      message = '(No properties were provided.)';
-    }
-
-    Dialog.alert(`Hello from ${strings.Title}:\n\n${message}`);
-
+    this.context.placeholderProvider.changedEvent.add(this, this._renderPlaceHolders);
+    this._renderPlaceHolders();
     return Promise.resolve();
+  }
+
+
+  private _renderPlaceHolders(): void {
+    if (!this._topPlaceholder) {
+      this._topPlaceholder = this.context.placeholderProvider.tryCreateContent(
+        PlaceholderName.Top,
+        {}
+      );
+
+        const elem = React.createElement(Settings, { context: this.context });
+        ReactDOM.render(elem, this._topPlaceholder.domElement);   
+    }
   }
 }

@@ -22,7 +22,7 @@
   "externals": {},
   "localizedResources": {
     "AdminApplicationCustomizerStrings": "lib/extensions/admin/loc/{locale}.js",
-    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/pt-pt.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
     "BannerWebPartStrings": "lib/webparts/banner/loc/{locale}.js"
   }

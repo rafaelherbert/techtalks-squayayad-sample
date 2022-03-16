@@ -8,3 +8,83 @@
     cursor: pointer;
     z-index: 1;
 }
+
+:global(.TechTalksGlobalStyles) {
+    fieldset {
+        border: 1px solid #d2d2d4;
+        legend {
+            color: rgba(0, 0, 0, .8);
+        }
+    }
+
+    label[class^="ms-Label"], label {
+        color: #747876;
+        font-weight: bold;
+        margin-bottom: 5px;
+        &.errored {
+            color: rgb(164, 38, 44);
+        }
+    }
+
+    span[class^="ms-Dropdown-title"] {
+        border-radius: 4px;
+    }
+    
+    span[class^="ms-Dropdown-title"] {
+        min-height: 41px;
+        padding: 5px 10px;
+    }
+
+    span[class^="ms-Dropdown-caretDownWrapper"] {
+        top: 5px;
+    }
+
+    * {
+        input,
+        div[class^="ms-TextField-fieldGroup"],
+        div[class^="ms-BasePicker-text"] {
+            border-radius: 4px;
+        }
+
+
+        div[class^="ms-PickerPersona-container"] {
+            margin: 7.6px;
+        }
+
+        div[class^="ms-TextField-fieldGroup"] {
+            min-height: 41px;
+            textarea {
+                padding: 12px;
+            }
+        }
+
+        div[class^="ms-BasePicker-text"] {
+            input {
+                height: 41px;
+                padding: 0px 12px;
+            }
+        }
+    }
+
+    button[class^="ms-Button ms-Button--primary"],
+    button[class^="ms-Button ms-Button--default"] {
+        cursor: pointer;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 166px;
+        height: 38px;
+        border-radius: 4px;
+
+        &:disabled {
+            background-color: rgba(0, 0, 0, .4);
+            border: none;
+            cursor: not-allowed;
+            pointer-events: all !important;
+        }
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+    }
+}

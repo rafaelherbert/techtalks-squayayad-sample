@@ -22,6 +22,15 @@ export default function Banner(props: IBannerProps) {
         setBannerImages(auxBannerImages);
     };
 
+    const carouselElements = bannerImages.map(bannerImage => ({
+        imageSrc: bannerImage.Image.serverRelativeUrl,
+        title: bannerImage.title,
+        description: bannerImage.Description,
+        url: bannerImage.Image.serverRelativeUrl,
+        showDetailsOnHover: true,
+        imageFit: ImageFit.cover
+    }));
+
     return (
         <Carousel
             buttonsLocation={CarouselButtonsLocation.center}
@@ -30,42 +39,7 @@ export default function Banner(props: IBannerProps) {
             contentContainerStyles={styles.carouselImageContent}
             isInfinite={true}
             pauseOnHover={true}
-            element={[
-                ...bannerImages.map(bannerImage => ({
-                    imageSrc: bannerImage.Image.serverRelativeUrl,
-                    title: bannerImage.title,
-                    description: bannerImage.Description,
-                    url: bannerImage.Image.serverRelativeUrl,
-                    showDetailsOnHover: true,
-                    imageFit: ImageFit.cover
-                })),
-                {
-                    imageSrc: 'https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3078&q=80',
-                    title: 'Colosseum',
-                    description: 'This is Colosseum',
-                    url: 'https://en.wikipedia.org/wiki/Colosseum',
-                    showDetailsOnHover: true,
-                    imageFit: ImageFit.cover,
-                },
-                {
-                    imageSrc: 'https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3078&q=80',
-                    title: 'Colosseum',
-                    description: 'This is Colosseum',
-                    url: 'https://en.wikipedia.org/wiki/Colosseum',
-                    showDetailsOnHover: true,
-                    imageFit: ImageFit.cover
-                },
-                {
-                    imageSrc: 'https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3078&q=80',
-                    title: 'Colosseum',
-                    description: 'This is Colosseum',
-                    url: 'https://en.wikipedia.org/wiki/Colosseum',
-                    showDetailsOnHover: true,
-                    imageFit: ImageFit.cover
-                }
-            ]}
-            onMoveNextClicked={(index: number) => { console.log(`Next button clicked: ${index}`); }}
-            onMovePrevClicked={(index: number) => { console.log(`Prev button clicked: ${index}`); }}
+            element={carouselElements}
         />
     );
 }

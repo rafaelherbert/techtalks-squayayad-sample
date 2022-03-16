@@ -23,10 +23,13 @@ export default function Settings(props:ISettingsProps) {
         <SecurityTrimmedControl 
             context={props.context}
             level={PermissionLevel.currentWeb}
-            permissions={[SPPermission.manageWeb]}
+            permissions={[SPPermission.managePermissions]}
+            showLoadingAnimation={true}
+            noPermissionsControl={<div className={styles.settings}>Usuário sem permissão.</div>}
+            className={styles.settings}
         >
-            <div className={styles.settings} onClick={openPanel}>
-                <Icon iconName="Add"/>
+            <div className={styles.settingsButton} onClick={openPanel}>
+                <Icon iconName="Settings"/>
             </div>
             <Panel
                 isOpen={isPanelOpen}

@@ -2,12 +2,22 @@
     position: fixed;
     bottom: 40px;
     right: 40px;
-    background-color: red;
-    padding: 20px;
-    border-radius: 4px;
-    cursor: pointer;
     z-index: 1;
+    .settingsButton {
+        cursor: pointer;
+        background-color: orange;
+        padding: 10px 12px;
+        border-radius: 50%;
+
+        i {
+            position: relative;
+            top: 1.5px;
+            font-size: 30px;
+            color: white;
+        }
+    }
 }
+
 
 :global(.TechTalksGlobalStyles) {
     fieldset {

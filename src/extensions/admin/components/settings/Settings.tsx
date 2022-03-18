@@ -8,16 +8,19 @@ import { IAdminApplicationCustomizerProperties } from '../../AdminApplicationCus
 import styles from './Settings.module.scss';
 import { SecurityTrimmedControl, PermissionLevel } from "@pnp/spfx-controls-react/lib/SecurityTrimmedControl";
 import { SPPermission } from '@microsoft/sp-page-context';
+import { FaqBusiness } from '../../../../business/FaqBusiness';
 
 interface ISettingsProps {
     context: ApplicationCustomizerContext;
 }
 
 export default function Settings(props:ISettingsProps) {
-    const bll = new BannerImageBusiness(props.context);
+    const bannerImageBll = new BannerImageBusiness(props.context);
+    const faqBll = new FaqBusiness(props.context);
+
     const [isPanelOpen, setIsPanelOpen] = useState(false);
-    const dismissPanel = () => { setIsPanelOpen(false); };
-    const openPanel = () => { setIsPanelOpen(true); };
+    const dismissPanel = () => setIsPanelOpen(false);
+    const openPanel = () => setIsPanelOpen(true);
 
     return (
         <SecurityTrimmedControl 
@@ -38,9 +41,7 @@ export default function Settings(props:ISettingsProps) {
                 closeButtonAriaLabel="Close"
             >
                 <ListManager
-                    listName="BannerImages"
-                    listId="a6d0aca8-6768-4b21-9561-1e61c5a7ed7e"
-                    business={bll}
+                    business={bannerImageBll}
                     strings={{
                         editDialogTitle: 'Editar Imagem de Banner',
                         createDialogTitle: 'Criar Imagem de Banner',
@@ -48,6 +49,15 @@ export default function Settings(props:ISettingsProps) {
                         buttonTitle: 'Administrar Imagens de Banner'
                     }}
                 />
+                {/* <ListManager
+                    business={faqBll}
+                    strings={{
+                        editDialogTitle: 'Editar Perguntas Frequentes',
+                        createDialogTitle: 'Criar Pergunta Frequente',
+                        mainDialogTitle: 'Administrar Perguntas Frequentes',
+                        buttonTitle: 'Administrar Perguntas Frequentes'
+                    }}
+                /> */}
             </Panel>
         </SecurityTrimmedControl>
     );

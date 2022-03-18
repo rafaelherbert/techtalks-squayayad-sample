@@ -8,8 +8,6 @@ import { BaseCrudBusiness, ICrudListItem } from '../../business/base/BaseCrudBus
 import styles from './ListManager.module.scss';
 
 interface IBannerImageAdminProps {
-    listName: string;
-    listId: string;
     business: BaseCrudBusiness<ICrudListItem>;
     strings: {
         editDialogTitle: string;
@@ -20,11 +18,11 @@ interface IBannerImageAdminProps {
 }
 
 export default function ListManager(props: IBannerImageAdminProps) {
-    const [bannerImages, setBannerImages] = useState<ICrudListItem[]>([]);
-    const [selectedBannerImage, setSelectedBannerImage] = useState<ICrudListItem>(null);
-    const [hideMainDialog, setHideMainDialog] = useState<boolean>(true);
+    const [listItems, setListItems]                       = useState<ICrudListItem[]>([]);
+    const [selectedListItem, setSelectedListItem]         = useState<ICrudListItem>(null);
+    const [hideMainDialog, setHideMainDialog]             = useState<boolean>(true);
     const [hideBannerEditDialog, setHideBannerEditDialog] = useState<boolean>(true);
-    const [error, setError] = useState<string>(null);
+    const [error, setError]                               = useState<string>(null);
 
     useEffect(() => {
         loadData();
@@ -33,14 +31,14 @@ export default function ListManager(props: IBannerImageAdminProps) {
     const loadData = async () => {
         try {
             const auxBannerImages = await props.business.getAll();
-            setBannerImages(auxBannerImages);
+            setListItems(auxBannerImages);
         } catch (error) {
             setError(error.message);
         }
     };
 
     const closeBannerEditDialog = () => {
-        setSelectedBannerImage(null);
+        setSelectedListItem(null);
         setHideBannerEditDialog(true);
     };
 
@@ -51,7 +49,7 @@ export default function ListManager(props: IBannerImageAdminProps) {
 
     const openBannerEditDialog = (bannerImage: ICrudListItem) => {
         setHideBannerEditDialog(false);
-        setSelectedBannerImage(bannerImage);
+        setSelectedListItem(bannerImage);
     };
 
     const deleteBanner = async (bannerImage: ICrudListItem) => {
@@ -74,24 +72,31 @@ export default function ListManager(props: IBannerImageAdminProps) {
                 hidden={hideMainDialog}
                 onDismiss={() => setHideMainDialog(true)}
                 dialogContentProps={{
-                    title: props.strings.mainDialogTitle,
+                    className: "TechTalksGlobalStyles",
+                    title: <>
+                        {props.strings.createDialogTitle}
+                        <div className={styles.createButton} onClick={() => setHideBannerEditDialog(false)}>
+                            <Icon iconName='Add'/>
+                            <span>
+                                Novo Item
+                            </span>
+                        </div>
+                    </>,
+                    showCloseButton: false
                 }}
                 styles={{root: {borderRadius: 4}}}
                 maxWidth={600}
                 minWidth={600}
             >
-                <div className="TechTalksGlobalStyles">
-                    <PrimaryButton className={styles.createButton} onClick={() => setHideBannerEditDialog(false)} text="Criar Imagem de Banner" />
-                    {bannerImages.map(bannerImage => (
-                        <div className={styles.bannerItem}>
-                            <div className={styles.title}>{bannerImage.title}</div>
-                            <div className={styles.actions}>
-                                <Icon iconName="Edit" onClick={() => openBannerEditDialog(bannerImage)}/>
-                                <Icon iconName="Delete" onClick={() => deleteBanner(bannerImage)}/>
-                            </div>
+                {listItems.map(bannerImage => (
+                    <div className={styles.bannerItem}>
+                        <div className={styles.title}>{bannerImage.title}</div>
+                        <div className={styles.actions}>
+                            <Icon iconName="Edit" onClick={() => openBannerEditDialog(bannerImage)}/>
+                            <Icon iconName="Delete" onClick={() => deleteBanner(bannerImage)}/>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </Dialog>
 
             <Dialog
@@ -99,17 +104,17 @@ export default function ListManager(props: IBannerImageAdminProps) {
                 onDismiss={closeBannerEditDialog}
                 styles={{root: {borderRadius: 4}}}
                 dialogContentProps={{
-                    title: selectedBannerImage ? props.strings.editDialogTitle : props.strings.createDialogTitle
+                    title: selectedListItem ? props.strings.editDialogTitle : props.strings.createDialogTitle
                 }}
                 maxWidth={900}
                 minWidth={900}
             >
                 <div className="TechTalksGlobalStyles">
                     <DynamicForm
-                        key={selectedBannerImage ? selectedBannerImage.id : null}
+                        key={selectedListItem ? selectedListItem.id : null}
                         context={props.business.context}
-                        listId={props.listId}  
-                        listItemId={selectedBannerImage ? selectedBannerImage.id : null}
+                        listId={props.business.listId}  
+                        listItemId={selectedListItem ? selectedListItem.id : null}
                         onCancelled={closeBannerEditDialog}
                         onBeforeSubmit={async (listItem) => { return false; }}
                         onSubmitError={(listItem, submitError) => { alert(submitError.message); }}

@@ -1,7 +1,30 @@
 .createButton {
     float: right;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    cursor: pointer;
+    border: 1px solid orange;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: orange;
+
+    i {
+        color: orange;
+        position: relative;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    transition: .5s !important;
+
+    &:hover {
+        color: white;
+        background-color: orange;
+        i {
+            color: white;
+        }
+    }
 }
 
 .bannerItem {
@@ -10,6 +33,11 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 0px 10px;
+
+    &:first-child {
+        padding-top: 20px;
+    }
 
     .title {
         font-size: $fontSize;
@@ -25,6 +53,7 @@
             border-radius: 50%;
 
             &:first-child { margin-right: 20px; }
+            &:last-child { margin-right: 10px; }
             &:hover { background-color: rgba(0, 0, 0, .2); }
         }
     }

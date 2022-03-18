@@ -12,13 +12,18 @@ const selectDefault = ["Id", "Title"];
 export interface ICrudListItem extends IListItem {
 }
 
-export abstract class BaseCrudBusiness<T extends ICrudListItem> {
-    public listInfo: IListInfo;
+export class BaseCrudBusiness<T extends ICrudListItem> {
     public context: WebPartContext | ApplicationCustomizerContext;
     private listService: ListService<T>;
+    public listId: string;
 
-    constructor(context: WebPartContext | ApplicationCustomizerContext, repository: IRepository<T>) {
+    constructor(
+        context: WebPartContext | ApplicationCustomizerContext,
+        listId: string,
+        repository: IRepository<T>,
+    ) {
         this.context = context;
+        this.listId = listId;
         this.listService = new ListService(context, repository);
     }
 

@@ -1,0 +1,28 @@
+.title {
+    font-size: 28px;
+    margin-top: 0px;
+    margin-bottom: 23px;
+}
+
+
+.menuItem {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+    background-color: orange;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+
+    i {
+        color: white;
+        margin-right: 20px;
+        position: relative;
+        top: 2.5px;
+    }
+
+    span {
+        color: white;
+    }
+}

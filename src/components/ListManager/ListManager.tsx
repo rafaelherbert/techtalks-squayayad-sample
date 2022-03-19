@@ -32,13 +32,13 @@ export default function ListManager(props: IBannerImageAdminProps) {
         try {
             const auxBannerImages = await props.business.getAll();
             setListItems(auxBannerImages);
+            setSelectedListItem(null);
         } catch (error) {
             setError(error.message);
         }
     };
 
     const closeBannerEditDialog = () => {
-        setSelectedListItem(null);
         setHideBannerEditDialog(true);
     };
 
@@ -67,7 +67,7 @@ export default function ListManager(props: IBannerImageAdminProps) {
     return (
         <div className="TechTalksGlobalStyles">
             {errorComponent}
-            <PrimaryButton onClick={() => setHideMainDialog(false)} text={props.strings.buttonTitle}/>
+            <PrimaryButton className={styles.mainButton} onClick={() => setHideMainDialog(false)} text={props.strings.buttonTitle}/>
             <Dialog
                 hidden={hideMainDialog}
                 onDismiss={() => setHideMainDialog(true)}

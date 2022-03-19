@@ -49,7 +49,7 @@ export default function Settings(props:ISettingsProps) {
                         buttonTitle: 'Administrar Imagens de Banner'
                     }}
                 />
-                {/* <ListManager
+                <ListManager
                     business={faqBll}
                     strings={{
                         editDialogTitle: 'Editar Perguntas Frequentes',
@@ -57,7 +57,7 @@ export default function Settings(props:ISettingsProps) {
                         mainDialogTitle: 'Administrar Perguntas Frequentes',
                         buttonTitle: 'Administrar Perguntas Frequentes'
                     }}
-                /> */}
+                />
             </Panel>
         </SecurityTrimmedControl>
     );

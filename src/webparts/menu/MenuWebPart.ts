@@ -46,17 +46,17 @@ export default class MenuWebPart extends BaseClientSideWebPart<IMenuWebPartProps
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: "Painel de Propriedades"
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: "Dados da WebPart",
               groupFields: [
                 PropertyFieldCollectionData("collectionData", {
                     key: "collectionData",
-                    label: "Collection data",
-                    panelHeader: "Collection data panel header",
-                    manageBtnLabel: "Manage collection data",
+                    label: "Coleção de dados",
+                    panelHeader: "Coleção de dados",
+                    manageBtnLabel: "Gerenciar coleção de dados",
                     value: this.properties.collectionData,
                     fields: [
                       {
